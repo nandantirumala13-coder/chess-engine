@@ -1,0 +1,73 @@
+import pygame
+import chess
+
+pygame.init()
+
+
+
+WIDTH = 800
+HEIGHT = 850
+BOARD_SIZE = 640
+SQUARE = BOARD_SIZE // 8    
+BOARD_X = (WIDTH - BOARD_SIZE) // 2
+BOARD_Y = 100
+
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Python Chess")
+
+
+clock = pygame.time.Clock()
+font = pygame.font.SysFont("dejavusans", 54)
+small_font = pygame.font.SysFont("Arial", 24)
+big_font = pygame.font.SysFont("Arial", 34, bold=True)
+
+
+
+LIGHT = (240, 217, 181)
+DARK = (181, 136, 99)
+BACKGROUND = (18, 22, 40)
+CYAN = (0, 222, 255)
+YELLOW = (255, 220, 70)
+WHITE = (255, 255, 255)
+
+
+
+PIECES = {
+    "K" : pygame.image.load("assets/white_king.png"),
+    "Q" : pygame.image.load("assets/white_queen.png"),
+    "R" : pygame.image.load("assets/white_rook.png"),
+    "B" : pygame.image.load("assets/white_bishop.png"),
+    "N" : pygame.image.load("assets/white_knight.png"),
+    "P" : pygame.image.load("assets/white_pawn.png"),
+    "k" : pygame.image.load("assets/black_king.png"),
+    "q" : pygame.image.load("assets/black_queen.png"),
+    "r" : pygame.image.load("assets/black_rook.png"),
+    "b" : pygame.image.load("assets/black_bishop.png"),
+    "n" : pygame.image.load("assets/black_knight.png"),
+    "p" : pygame.image.load("assets/black_pawn.png")
+}
+
+
+board = chess.Board()
+selected = None
+legal_targets = []
+message = "White to move"
+last_move = None
+
+
+
+def square_rect(square):
+    file = chess.square_file(square)
+    rank = chess.square_rank(square)
+
+
+    x = BOARD_X + file * SQUARE
+    y = BOARD_Y + (7 - rank) * SQUARE
+
+
+    return pygame.Rect(x, y, SQUARE, SQUARE)
+
+
+
+   
